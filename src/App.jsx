@@ -31,7 +31,7 @@ const App = () => {
   }
   return (
     <>
-      {refreshToken || user ? (
+      {refreshToken && user ? (
         <Routes>
           <Route path="/" element={<Navigate to="/admin/blogs" replace />} />
           <Route
