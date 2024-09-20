@@ -43,6 +43,7 @@ export default function SignIn() {
       Navigate("/admin/blogs");
     } catch (error) {
       notifyError("Login failed. Please try again.");
+      console.log(error);
     }
   };
 
