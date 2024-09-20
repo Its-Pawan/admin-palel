@@ -5,6 +5,8 @@ import { notifyError } from 'components/utils/ToastNotifications';
 
 const api_url = process.env.REACT_APP_API_URL
 
+console.log(api_url);
+
 // Async thunk for login
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
@@ -17,7 +19,7 @@ export const loginUser = createAsyncThunk(
                     validateStatus: function (status) {
                         return status < 500; // Resolve only if the status code is less than 500
                     },
-                }); 
+                });
             if (response.status === 404) {
                 return thunkAPI.rejectWithValue('Invalid credentials, user not found.');
             }
