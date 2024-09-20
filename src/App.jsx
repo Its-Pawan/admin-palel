@@ -9,14 +9,14 @@ import Notfound from "views/Notfound";
 import { logoutUser } from "features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import { 
-  notifyInfo,
-} from "components/utils/ToastNotifications";
+import { notifyInfo } from "components/utils/ToastNotifications";
 import Loader from "components/loader/Loader";
 import Cookies from "js-cookie";
 
 const App = () => {
-  const { isLoading, user } = useSelector((state) => state.auth);
+  const { isLoading, user, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {

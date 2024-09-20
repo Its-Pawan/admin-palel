@@ -23,7 +23,7 @@ export default function SignIn() {
     });
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     const credentials = { email: formData.email, password: formData.password };
     if (!credentials.email || !credentials.password) {
@@ -36,15 +36,7 @@ export default function SignIn() {
       return;
     }
 
-    try {
-      // Attempt to log in
-      await dispatch(loginUser(credentials)).unwrap();
-      // If successful, navigate to the dashboard
-      Navigate("/");
-    } catch (error) {
-      notifyError("Login failed. Please try again.");
-      console.log(error);
-    }
+    dispatch(loginUser(credentials)); 
   };
 
   return (

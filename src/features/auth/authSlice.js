@@ -4,8 +4,7 @@ import { notifySuccess } from 'components/utils/ToastNotifications';
 import { notifyError } from 'components/utils/ToastNotifications';
 
 const api_url = process.env.REACT_APP_API_URL
-
-console.log(api_url);
+ 
 
 // Async thunk for login
 export const loginUser = createAsyncThunk(
@@ -83,8 +82,7 @@ const authSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 const user = action.payload?.data?.user; // Safely access the user data
-                const token = action.payload?.data?.refreshToken; // Safely access the refreshToken
-                console.log("state:", token);
+                const token = action.payload?.data?.refreshToken; // Safely access the refreshToken 
 
                 if (user && token) {
                     state.user = user;
