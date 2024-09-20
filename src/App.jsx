@@ -24,7 +24,7 @@ const App = () => {
     dispatch(logoutUser());
     notifyInfo("Log-out Successfull");
   };
-  const refreshToken = Cookies.get("refreshToken");
+  const refreshToken = localStorage.getItem("refreshToken");
 
   if (isLoading) {
     return <Loader />;

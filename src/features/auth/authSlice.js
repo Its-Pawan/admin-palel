@@ -4,7 +4,7 @@ import { notifySuccess } from 'components/utils/ToastNotifications';
 import { notifyError } from 'components/utils/ToastNotifications';
 
 const api_url = process.env.REACT_APP_API_URL
- 
+
 
 // Async thunk for login
 export const loginUser = createAsyncThunk(
@@ -88,6 +88,10 @@ const authSlice = createSlice({
                     state.user = user;
                     state.token = token;
                     state.isAuthenticated = true;
+                    // Store the token in local storage for 5 days
+                    const expirationTime = new Date().getTime() + 5 * 24 * 60 * 60 * 1000; // 5 days in milliseconds
+                    localStorage.setItem('refreshToken', token);
+                    localStorage.setItem('tokenExpiration', expirationTime);
                     notifySuccess("Login Success.")
                 } else {
                     state.error = 'User or refreshToken is missing in the response payload';
@@ -112,6 +116,10 @@ const authSlice = createSlice({
                 state.user = {};
                 state.token = null;
                 state.isAuthenticated = false;
+
+                // Clear local storage
+                localStorage.removeItem('refreshToken');
+                localStorage.removeItem('tokenExpiration');
                 notifySuccess("Logout Success.")
             })
             .addCase(logoutUser.rejected, (state, action) => {
