@@ -84,7 +84,7 @@ const authSlice = createSlice({
                 state.isLoading = false;
                 const user = action.payload?.data?.user; // Safely access the user data
                 const token = action.payload?.data?.refreshToken; // Safely access the refreshToken
-                console.log(token);
+                console.log("state:", token);
 
                 if (user && token) {
                     state.user = user;
