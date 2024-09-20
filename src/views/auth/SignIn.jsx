@@ -5,6 +5,7 @@ import { loginUser } from "../../features/auth/authSlice";
 import { notifySuccess } from "components/utils/ToastNotifications";
 import { notifyError } from "components/utils/ToastNotifications";
 import { notifyInfo } from "components/utils/ToastNotifications";
+import { Navigate } from "react-router-dom";
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function SignIn() {
     });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const credentials = { email: formData.email, password: formData.password };
     if (!credentials.email || !credentials.password) {
@@ -34,8 +35,15 @@ export default function SignIn() {
       notifyInfo("Invalid email format");
       return;
     }
-   
-    dispatch(loginUser(credentials));
+
+    try {
+      // Attempt to log in
+      await dispatch(loginUser(credentials)).unwrap();
+      // If successful, navigate to the dashboard
+      Navigate("/admin/blogs");
+    } catch (error) {
+      notifyError("Login failed. Please try again.");
+    }
   };
 
   return (
