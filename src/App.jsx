@@ -4,36 +4,34 @@ import { ToastContainer } from "react-toastify";
 
 import AdminLayout from "layouts/admin";
 import AuthLayout from "layouts/auth";
-import Notfound from "views/Notfound"; 
+import Notfound from "views/Notfound";
 
 import { logoutUser } from "features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  notifyError,
-  notifySuccess,
+import { 
   notifyInfo,
 } from "components/utils/ToastNotifications";
 import Loader from "components/loader/Loader";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const App = () => {
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(logoutUser());
     notifyInfo("Log-out Successfull");
-  }; 
-  const refreshToken = Cookies.get('refreshToken'); 
+  };
+  const refreshToken = Cookies.get("refreshToken");
 
   if (isLoading) {
     return <Loader />;
   }
   return (
     <>
-      {refreshToken ? (
+      {refreshToken || user ? (
         <Routes>
           <Route path="/" element={<Navigate to="/admin/blogs" replace />} />
           <Route

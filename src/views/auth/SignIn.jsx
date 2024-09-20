@@ -40,7 +40,7 @@ export default function SignIn() {
       // Attempt to log in
       await dispatch(loginUser(credentials)).unwrap();
       // If successful, navigate to the dashboard
-      Navigate("/admin/blogs");
+      Navigate("/");
     } catch (error) {
       notifyError("Login failed. Please try again.");
       console.log(error);
