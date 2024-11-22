@@ -24,15 +24,23 @@ const App = () => {
     e.preventDefault();
     dispatch(logoutUser());
     notifyInfo("Log-out Successfull");
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+    localStorage.removeItem("refreshToken");
   };
   const refreshToken = localStorage.getItem("refreshToken");
+
+  // Define a clear condition for authentication
+  const isUserAuthenticated =
+    (refreshToken && Object.keys(user).length !== 0) || isAuthenticated;
 
   if (isLoading) {
     return <Loader />;
   }
+
   return (
     <>
-      {(refreshToken && user) || isAuthenticated ? (
+      {isUserAuthenticated ? (
         <Routes>
           <Route path="/" element={<Navigate to="/admin/blogs" replace />} />
           <Route
