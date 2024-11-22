@@ -18,6 +18,7 @@ const App = () => {
     (state) => state.auth
   );
   const dispatch = useDispatch();
+  // console.log(isLoading, user, isAuthenticated);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const App = () => {
   }
   return (
     <>
-      {refreshToken && user ? (
+      {(refreshToken && user) || isAuthenticated ? (
         <Routes>
           <Route path="/" element={<Navigate to="/admin/blogs" replace />} />
           <Route
